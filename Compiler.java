@@ -263,8 +263,10 @@ public class Compiler{
 						System.out.println("j: Jumping to coordinates given by the top two values on the stack");
 					}
 					try{
-						hPos = stack.get(stack.size()-1)-1;
-						vPos = stack.get(stack.size()-2)-1;
+						int jumpH = stack.get(stack.size()-1);
+						int jumpV = stack.get(stack.size()-2);
+						hPos = jumpH;
+						vPos = jumpV-1;
 						cont();
 					} catch(ArrayIndexOutOfBoundsException e) {
 						error("Tried to jump using a nonexistant value on the stack");
@@ -316,7 +318,7 @@ public class Compiler{
 					}
 					break;
 				default:
-					error("Unknown character");
+					error("Unknown character: " + map[vPos][hPos]);
 					break;
 			}
 		} catch(ArrayIndexOutOfBoundsException e) {
@@ -465,8 +467,9 @@ public class Compiler{
 	public static void main(String[] args){
 		Compiler x = new Compiler();
 		try{
-			x.createMap(x.readFile("test3.txt"));
+			x.createMap(x.readFile("example.txt"));
 			if(x.debugging){
+				System.out.println(Arrays.deepToString(x.map));
 				System.out.println("Current Coords: 1,1");
 			}
 			x.interpret();
