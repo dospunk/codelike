@@ -10,8 +10,8 @@ public class Compiler{
 	public int hPos = 0;
 	public String[][] map;
 	public ArrayList<Integer> stack = new ArrayList<Integer>();
-	public boolean debugging = false;
-	public String source = "examples/helloworld.txt";
+	public boolean debugging = true;
+	public String source = "examples/reversal.txt";
 	
 	public void changeDir(String dir){
 		switch(dir){
@@ -53,6 +53,11 @@ public class Compiler{
 	}
 	
 	public void cont(){
+		if(debugging){
+			System.out.println("Current Coords: " + (hPos+1) + "," + (vPos+1));
+			System.out.println(stack);
+			System.out.println("\n");
+		}
 		if(hDir.equals("n") && vDir.equals("u")){
 			vPos--;
 		} else if(hDir.equals("r") && vDir.equals("u")){
@@ -73,10 +78,6 @@ public class Compiler{
 		} else if(hDir.equals("l") && vDir.equals("u")){
 			vPos--;
 			hPos--;
-		}
-		if(debugging){
-			System.out.println("Current Coords: " + (hPos+1) + "," + (vPos+1));
-			System.out.println(stack);
 		}
 		interpret();
 	}
@@ -148,40 +149,6 @@ public class Compiler{
 						error(dirEr);
 					}
 					break;
-				case "o":
-					if(debugging){
-						System.out.println("o: Changing direction counter-clockwise");
-					}
-					scanCC();
-					break;
-				case "c":
-					if(debugging){
-						System.out.println("c: Changing direction clockwise");
-					}
-					scanC();
-					break;
-				case "n":
-					if(debugging){
-						System.out.println("n: adding 0 to the stack");
-					}
-					stack.add(0);
-					cont();
-					break;
-				case "u":
-					if(debugging){
-						System.out.println("u: getting value from user input");
-					}
-					try{
-						Scanner user = new Scanner(System.in);
-						
-						int input = user.nextInt();
-						stack.add(input);
-						user.close();
-						cont();
-					}catch(InputMismatchException e){
-						error("Input must be an integer");
-					}
-						break;
 				case "+":
 					if(debugging){
 						System.out.println("+: Incrementing the top value on the stack");
@@ -225,106 +192,6 @@ public class Compiler{
 					} catch(ArrayIndexOutOfBoundsException e) {
 						error("Tried to multiply a nonexistant value on the stack");
 					}
-					break;
-				case "d":
-					if(debugging){
-						System.out.println("d: Dividing the top two numbers on the stack");
-					}
-					try{
-						int temp1 = stack.get(stack.size()-1);
-						int temp2 = stack.get(stack.size()-2);
-						int temp3 = (int)Math.floor(temp1/temp2);
-						stack.remove(stack.size()-1);
-						stack.remove(stack.size()-1);
-						stack.add(temp3);
-						cont();
-					} catch(ArrayIndexOutOfBoundsException e) {
-						error("Tried to divide a nonexistant value on the stack");
-					}
-					break;
-				case "a":
-					if(debugging){
-						System.out.println("a: Adding the top two numbers on the stack");
-					}
-					try{
-						int temp1 = stack.get(stack.size()-1);
-						int temp2 = stack.get(stack.size()-2);
-						int temp3 = temp1+temp2;
-						stack.remove(stack.size()-1);
-						stack.remove(stack.size()-1);
-						stack.add(temp3);
-						cont();
-					} catch(ArrayIndexOutOfBoundsException e) {
-						error("Tried to add a nonexistant value on the stack");
-					}
-					break;
-				case "s":
-					if(debugging){
-						System.out.println("s: Subtracting the top two numbers on the stack");
-					}
-					try{
-						int temp1 = stack.get(stack.size()-1);
-						int temp2 = stack.get(stack.size()-2);
-						int temp3 = temp1-temp2;
-						stack.remove(stack.size()-1);
-						stack.remove(stack.size()-1);
-						stack.add(temp3);
-						cont();
-					} catch(ArrayIndexOutOfBoundsException e) {
-						error("Tried to subtract a nonexistant value on the stack");
-					}
-					break;
-				case "j":
-					if(debugging){
-						System.out.println("j: Jumping to coordinates given by the top two values on the stack");
-					}
-					try{
-						int jumpH = stack.get(stack.size()-1);
-						int jumpV = stack.get(stack.size()-2);
-						hPos = jumpH;
-						vPos = jumpV-1;
-						cont();
-					} catch(ArrayIndexOutOfBoundsException e) {
-						error("Tried to jump using a nonexistant value on the stack");
-					}
-					break;
-				case "r":
-					if(hDir.equals("u")){
-						hDir = "d";
-					} else if(hDir.equals("d")){
-						hDir = "u";
-					}
-					if(vDir.equals("l")){
-						vDir = "r";
-					} else if(vDir.equals("r")){
-						vDir = "l";
-					}
-					cont();
-					break;
-				case "p":
-					if(debugging){
-						System.out.println("p: Printing the ASCII character indicated by the top value on the stack");
-					}
-					try{
-						System.out.print((char)(int)stack.get(stack.size()-1));
-						if(debugging){
-							System.out.println("");
-						}
-						cont();
-					} catch(ArrayIndexOutOfBoundsException e) {
-						error("Tried to increment a nonexistant value on the stack");
-					}
-					break;
-				case "f":
-					if(debugging){
-						System.out.println("f: Removing the top value from the stack");
-					}
-					try {
-						stack.remove(stack.size()-1);
-					} catch(ArrayIndexOutOfBoundsException e){
-						error("tried to remove item " + (stack.size()-1) + " from stack of size " + stack.size());
-					}
-					cont();
 					break;
 				case "<":
 					if(debugging){
@@ -371,11 +238,148 @@ public class Compiler{
 						error(dirEr);
 					}
 					break;
+				case "a":
+					if(debugging){
+						System.out.println("a: Adding the top two numbers on the stack");
+					}
+					try{
+						int temp1 = stack.get(stack.size()-1);
+						int temp2 = stack.get(stack.size()-2);
+						int temp3 = temp1+temp2;
+						stack.remove(stack.size()-1);
+						stack.remove(stack.size()-1);
+						stack.add(temp3);
+						cont();
+					} catch(ArrayIndexOutOfBoundsException e) {
+						error("Tried to add a nonexistant value on the stack");
+					}
+					break;
+				case "c":
+					if(debugging){
+						System.out.println("c: Changing direction clockwise");
+					}
+					scanC();
+					break;
+				case "d":
+					if(debugging){
+						System.out.println("d: Dividing the top two numbers on the stack");
+					}
+					try{
+						int temp1 = stack.get(stack.size()-1);
+						int temp2 = stack.get(stack.size()-2);
+						int temp3 = (int)Math.floor(temp1/temp2);
+						stack.remove(stack.size()-1);
+						stack.remove(stack.size()-1);
+						stack.add(temp3);
+						cont();
+					} catch(ArrayIndexOutOfBoundsException e) {
+						error("Tried to divide a nonexistant value on the stack");
+					}
+					break;
 				case "e":
 					if(debugging){
 						System.out.println("e: ending the program");
 					}
 					break;
+				case "f":
+					if(debugging){
+						System.out.println("f: Removing the top value from the stack");
+					}
+					try {
+						stack.remove(stack.size()-1);
+					} catch(ArrayIndexOutOfBoundsException e){
+						error("tried to remove item " + (stack.size()-1) + " from stack of size " + stack.size());
+					}
+					cont();
+					break;
+				case "j":
+					if(debugging){
+						System.out.println("j: Jumping to coordinates given by the top two values on the stack");
+					}
+					try{
+						int jumpH = stack.get(stack.size()-1);
+						int jumpV = stack.get(stack.size()-2);
+						hPos = jumpH-1;
+						vPos = jumpV-1;
+						cont();
+					} catch(ArrayIndexOutOfBoundsException e) {
+						error("Tried to jump using a nonexistant value on the stack");
+					}
+					break;
+				case "p":
+					if(debugging){
+						System.out.println("p: Printing the ASCII character indicated by the top value on the stack");
+					}
+					try{
+						System.out.print((char)(int)stack.get(stack.size()-1));
+						if(debugging){
+							System.out.println("");
+						}
+						cont();
+					} catch(ArrayIndexOutOfBoundsException e) {
+						error("Tried to increment a nonexistant value on the stack");
+					}
+					break;
+				case "n":
+					if(debugging){
+						System.out.println("n: adding 0 to the stack");
+					}
+					stack.add(0);
+					cont();
+					break;
+				case "o":
+					if(debugging){
+						System.out.println("o: Changing direction counter-clockwise");
+					}
+					scanCC();
+					break;
+				case "r":
+					if(debugging){
+						System.out.println("r: reversing direction");
+					}
+					if(hDir.equals("l")){
+						hDir = "r";
+					} else if(hDir.equals("r")){
+						hDir = "l";
+					}
+					if(vDir.equals("u")){
+						vDir = "d";
+					} else if(vDir.equals("d")){
+						vDir = "u";
+					}
+					cont();
+					break;
+				case "s":
+					if(debugging){
+						System.out.println("s: Subtracting the top two numbers on the stack");
+					}
+					try{
+						int temp1 = stack.get(stack.size()-1);
+						int temp2 = stack.get(stack.size()-2);
+						int temp3 = temp1-temp2;
+						stack.remove(stack.size()-1);
+						stack.remove(stack.size()-1);
+						stack.add(temp3);
+						cont();
+					} catch(ArrayIndexOutOfBoundsException e) {
+						error("Tried to subtract a nonexistant value on the stack");
+					}
+					break;
+				case "u":
+					if(debugging){
+						System.out.println("u: getting value from user input");
+					}
+					try{
+						Scanner user = new Scanner(System.in);
+						
+						int input = user.nextInt();
+						stack.add(input);
+						user.close();
+						cont();
+					}catch(InputMismatchException e){
+						error("Input must be an integer");
+					}
+						break;
 				default:
 					error("Unknown character: " + map[vPos][hPos]);
 					break;
@@ -528,8 +532,7 @@ public class Compiler{
 		try{
 			x.createMap(x.readFile(x.source));
 			if(x.debugging){
-				System.out.println(Arrays.deepToString(x.map));
-				System.out.println("Current Coords: 1,1");
+				System.out.println(Arrays.deepToString(x.map) + "\n");
 			}
 			x.interpret();
 		} catch(IOException e) {
