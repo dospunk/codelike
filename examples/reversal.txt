@@ -1,0 +1,9 @@
+o-n-++++-n-++++-j
+                 
+           
+  o-f-r
+  |
+  o-n++++n++*n+++++*pfe
+      
+	  
+    This program should output "("
