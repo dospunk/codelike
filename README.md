@@ -43,4 +43,10 @@ s: pop the top two values from the stack, subtract them, and push the result to 
 
 j: take the top two values from the stack as coordinates (top val = x, second val = y) and go to those coordinates in the grid
 
+>: If moving to the left, will continue up+left if the top value on the stack is greater than 0, or down+left if it is less than zero
+
+<: If moving to the right, will continue up+right if the top value on the stack is greater than 0, or down+right if it is less than zero
+
+^: If moving to the down, will continue down+right if the top value on the stack is greater than 0, or down+left if it is less than zero
+
 e: end the program
