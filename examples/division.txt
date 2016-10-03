@@ -1,1 +1,4 @@
 o-n-++-n-++++++++++-n-++++++++++-*-+-d-p-f-e
+
+divides 101 by 2 and prints Ascii character that matches the result rounded down
+101/2 rounded down = 50 which corresponds to the character "2"
