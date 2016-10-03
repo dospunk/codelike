@@ -3,7 +3,7 @@ A 2D programming language
 
 ## Some notes
 
-Specify the file to run by changing the `source` string at the begining of the file [x](https://github.com/dospunk/codelike/blob/master/Compiler.java#L14)
+Specify the file to run by changing the `source` string at the begining of the file [(x)](https://github.com/dospunk/codelike/blob/master/Compiler.java#L14)
 
 When reading a source file, the compiler will always start at the top left corner and will be going down.
 
@@ -13,7 +13,7 @@ Please note that tabs only count as one character! Make sure to use spaces.
 
 If you get a `j` error first thing when running but your file does not start with a `j`, it means that the file could not be found
 
-turn on debugging mode by changing the `debugging` boolean at the begining of the file to `true`
+turn on debugging mode by changing the `debugging` boolean at the begining of the file to `true` [(x)](https://github.com/dospunk/codelike/blob/master/Compiler.java#L13)
 
 ## Commands
 
