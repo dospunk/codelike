@@ -10,7 +10,7 @@ public class Compiler{
 	public int hPos = 0;
 	public String[][] map;
 	public ArrayList<Integer> stack = new ArrayList<Integer>();
-	public boolean debugging = false;
+	public boolean debugging = true;
 	public String source = "examples/helloworld.txt";
 	
 	public void changeDir(String dir){
