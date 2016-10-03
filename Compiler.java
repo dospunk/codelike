@@ -11,6 +11,7 @@ public class Compiler{
 	public String[][] map;
 	public ArrayList<Integer> stack = new ArrayList<Integer>();
 	public boolean debugging = false;
+	public String source = "example4.txt";
 	
 	public void changeDir(String dir){
 		switch(dir){
@@ -70,7 +71,7 @@ public class Compiler{
 		} else if(hDir.equals("l") && vDir.equals("n")){
 			hPos--;
 		} else if(hDir.equals("l") && vDir.equals("u")){
-			vPos++;
+			vPos--;
 			hPos--;
 		}
 		if(debugging){
@@ -166,6 +167,21 @@ public class Compiler{
 					stack.add(0);
 					cont();
 					break;
+				case "u":
+					if(debugging){
+						System.out.println("u: getting value from user input");
+					}
+					try{
+						Scanner user = new Scanner(System.in);
+						
+						int input = user.nextInt();
+						stack.add(input);
+						user.close();
+						cont();
+					}catch(InputMismatchException e){
+						error("Input must be an integer");
+					}
+						break;
 				case "+":
 					if(debugging){
 						System.out.println("+: Incrementing the top value on the stack");
@@ -272,6 +288,19 @@ public class Compiler{
 						error("Tried to jump using a nonexistant value on the stack");
 					}
 					break;
+				case "r":
+					if(hDir.equals("u")){
+						hDir = "d";
+					} else if(hDir.equals("d")){
+						hDir = "u";
+					}
+					if(vDir.equals("l")){
+						vDir = "r";
+					} else if(vDir.equals("r")){
+						vDir = "l";
+					}
+					cont();
+					break;
 				case "p":
 					if(debugging){
 						System.out.println("p: Printing the ASCII character indicated by the top value on the stack");
@@ -286,21 +315,6 @@ public class Compiler{
 						error("Tried to increment a nonexistant value on the stack");
 					}
 					break;
-				case "u":
-					if(debugging){
-						System.out.println("u: getting value from user input");
-					}
-					try{
-						Scanner user = new Scanner(System.in);
-						
-						int input = user.nextInt();
-						stack.add(input);
-						user.close();
-						cont();
-					}catch(InputMismatchException e){
-						error("Input must be an integer");
-					}
-						break;
 				case "f":
 					if(debugging){
 						System.out.println("f: Removing the top value from the stack");
@@ -311,6 +325,51 @@ public class Compiler{
 						error("tried to remove item " + (stack.size()-1) + " from stack of size " + stack.size());
 					}
 					cont();
+					break;
+				case "<":
+					if(debugging){
+						System.out.println("<: Checking if the top value is geater than 0");
+					}
+					if(hDir.equals("r")){
+						if(stack.get(stack.size()-1) > 0){
+							changeDir("ur");
+						} else {
+							changeDir("dr");
+						}
+						cont();
+					} else {
+						error(dirEr);
+					}
+					break;
+				case ">":
+					if(debugging){
+						System.out.println(">: Checking if the top value is geater than 0");
+					}
+					if(hDir.equals("l")){
+						if(stack.get(stack.size()-1) > 0){
+							changeDir("ul");
+						} else {
+							changeDir("dl");
+						}
+						cont();
+					} else {
+						error(dirEr);
+					}
+					break;
+				case "^":
+					if(debugging){
+						System.out.println("^: Checking if the top value is geater than 0");
+					}
+					if(vDir.equals("d")){
+						if(stack.get(stack.size()-1) > 0){
+							changeDir("dr");
+						} else {
+							changeDir("dl");
+						}
+						cont();
+					} else {
+						error(dirEr);
+					}
 					break;
 				case "e":
 					if(debugging){
@@ -467,7 +526,7 @@ public class Compiler{
 	public static void main(String[] args){
 		Compiler x = new Compiler();
 		try{
-			x.createMap(x.readFile("example.txt"));
+			x.createMap(x.readFile(x.source));
 			if(x.debugging){
 				System.out.println(Arrays.deepToString(x.map));
 				System.out.println("Current Coords: 1,1");
