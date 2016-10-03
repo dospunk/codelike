@@ -3,6 +3,8 @@ A 2D programming language
 
 When reading a source file, the compiler will always start at the top left corner and will be going down.
 
+Y coordinates increase going down, X coordinates increase going left
+
 Please note that tabs only count as one character! Make sure to use spaces.
 
 ##Commands
