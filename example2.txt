@@ -1,0 +1,5 @@
+|        c-n-++++++++-n-++++++++++-*-p-f-e
+o-----u-<
+         o-n-++++++-n-+++++++++++++-*-p-f-e
+		 
+		 This program will take a number from user input and return N if the number is negative or 0 and P is it is positive
