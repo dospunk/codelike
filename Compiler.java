@@ -10,7 +10,7 @@ public class Compiler{
 	public int hPos = 0;
 	public String[][] map;
 	public ArrayList<Integer> stack = new ArrayList<Integer>();
-	public boolean debugging = true;
+	public boolean debugging = false;
 	public String source = "examples/helloworld.txt";
 	
 	public void changeDir(String dir){
@@ -90,7 +90,7 @@ public class Compiler{
 		for(String row : rows) {
 			mkMap[i++] = row.split("");
 		}
-		 map = mkMap.clone();
+		map = mkMap.clone();
 	}
 	
 	public void error(String err){
@@ -295,13 +295,16 @@ public class Compiler{
 				case "j":
 					if(debugging){
 						System.out.println("j: Jumping to coordinates given by the top two values on the stack");
+						System.out.println("Current Coords: " + (hPos+1) + "," + (vPos+1));
+						System.out.println(stack);
+						System.out.println("\n");
 					}
 					try{
 						int jumpH = stack.get(stack.size()-1);
 						int jumpV = stack.get(stack.size()-2);
 						hPos = jumpH-1;
 						vPos = jumpV-1;
-						cont();
+						interpret();
 					} catch(ArrayIndexOutOfBoundsException e) {
 						error("Tried to jump using a nonexistant value on the stack");
 					}
