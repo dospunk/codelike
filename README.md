@@ -39,6 +39,8 @@ _: decrement top value on the stack and continue
 
 a: pop the top two values from the stack, add them, and push the result to the stack
 
+b: print the top value from the stack
+
 c: change direction: scan clockwise and continue
 
 d: pop the top two values from the stack, divide the top by the second, and push the result rounded down to the stack
@@ -51,7 +53,7 @@ n: push a 0 onto the stack
 
 o: change direction: scan counter-clockwise and continue
 
-p: print the ASCII character corresponding to the top value
+p: print the ASCII character corresponding to the top value on the stack
 
 r: reverses the direction
 

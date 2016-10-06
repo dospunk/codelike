@@ -11,7 +11,7 @@ public class Compiler{
 	public String[][] map;
 	public ArrayList<Integer> stack = new ArrayList<Integer>();
 	public boolean debugging = false;
-	public String source = "examples/helloworld.txt";
+	public String source = "examples/sum.txt";
 	
 	public void changeDir(String dir){
 		switch(dir){
@@ -254,6 +254,20 @@ public class Compiler{
 						error("Tried to add a nonexistant value on the stack");
 					}
 					break;
+				case "b":
+					if(debugging){
+						System.out.println("b: Printing the integer value on the top of the stack");
+					}
+					try {
+						System.out.print(stack.get(stack.size()-1));
+						if(debugging){
+							System.out.println("");
+						}
+						cont();
+					} catch(ArrayIndexOutOfBoundsException e) {
+						error("Tried to print a nonexistant value on the stack");
+					}
+					break;
 				case "c":
 					if(debugging){
 						System.out.println("c: Changing direction clockwise");
@@ -309,6 +323,19 @@ public class Compiler{
 						error("Tried to jump using a nonexistant value on the stack");
 					}
 					break;
+				case "n":
+					if(debugging){
+						System.out.println("n: adding 0 to the stack");
+					}
+					stack.add(0);
+					cont();
+					break;
+				case "o":
+					if(debugging){
+						System.out.println("o: Changing direction counter-clockwise");
+					}
+					scanCC();
+					break;
 				case "p":
 					if(debugging){
 						System.out.println("p: Printing the ASCII character indicated by the top value on the stack");
@@ -322,19 +349,6 @@ public class Compiler{
 					} catch(ArrayIndexOutOfBoundsException e) {
 						error("Tried to increment a nonexistant value on the stack");
 					}
-					break;
-				case "n":
-					if(debugging){
-						System.out.println("n: adding 0 to the stack");
-					}
-					stack.add(0);
-					cont();
-					break;
-				case "o":
-					if(debugging){
-						System.out.println("o: Changing direction counter-clockwise");
-					}
-					scanCC();
 					break;
 				case "r":
 					if(debugging){
@@ -377,7 +391,6 @@ public class Compiler{
 						
 						int input = user.nextInt();
 						stack.add(input);
-						user.close();
 						cont();
 					}catch(InputMismatchException e){
 						error("Input must be an integer");
