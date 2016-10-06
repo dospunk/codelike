@@ -11,7 +11,7 @@ public class Compiler{
 	public String[][] map;
 	public ArrayList<Integer> stack = new ArrayList<Integer>();
 	public boolean debugging = false;
-	public String source = "examples/sum.txt";
+	public String source = "examples/helloworld.txt";
 	
 	public void changeDir(String dir){
 		switch(dir){
