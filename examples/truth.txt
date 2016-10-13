@@ -2,3 +2,8 @@ u       e
 |   c__<   cbr
 o-+<    o+<
     e      obe
+
+This is a truth machine.
+If the user inputs a 1, it will output 1 until it causes a stack overflow error.
+If the user inputs a 0, it will print 0 and end.
+Any other input will just end the program.
