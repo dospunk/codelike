@@ -3,7 +3,7 @@ A 2D programming language
 
 ## Some notes
 
-Specify the file to run by changing the `source` string at the begining of the file [(x)](https://github.com/dospunk/codelike/blob/master/Compiler.java#L14)
+Specify the file to run by passing it as an argument when running Compiler
 
 When reading a source file, the compiler will always start at the top left corner and will be going down.
 
