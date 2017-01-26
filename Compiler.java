@@ -11,7 +11,6 @@ public class Compiler{
 	public String[][] map;
 	public ArrayList<Integer> stack = new ArrayList<Integer>();
 	public boolean debugging = false;
-	public String source = "examples/helloworld.txt";
 	
 	public void changeDir(String dir){
 		switch(dir){
@@ -546,13 +545,13 @@ public class Compiler{
 	public static void main(String[] args){
 		Compiler x = new Compiler();
 		try{
-			x.createMap(x.readFile(x.source));
+			x.createMap(x.readFile(args[0]));
 			if(x.debugging){
 				System.out.println(Arrays.deepToString(x.map) + "\n");
 			}
 			x.interpret();
-		} catch(IOException e) {
-			System.out.println("Well fuck");
+		} catch(IOException|ArrayIndexOutOfBoundsException e) {
+			System.out.println("Please pass a valid filename as an argument, in this form: java Compiler <filename>");
 		}
 	}
 }
