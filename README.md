@@ -1,6 +1,8 @@
 # Codelike
 A 2D programming language
 
+*Note: I made this back in 2016, and haven't touched it much since. Even still, I'm proud of it as it was my first attempt at file IO and it works fairly well.*
+
 ## Some notes
 
 Specify the file to run by passing it as an argument when running Interpreter
