@@ -3,9 +3,9 @@ A 2D programming language
 
 ## Some notes
 
-Specify the file to run by passing it as an argument when running Compiler
+Specify the file to run by passing it as an argument when running Interpreter
 
-When reading a source file, the compiler will always start at the top left corner and will be going down.
+When reading a source file, the interpreter will always start at the top left corner and will be going down.
 
 Y coordinates increase going down, X coordinates increase going left
 
