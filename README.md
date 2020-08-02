@@ -15,7 +15,7 @@ Please note that tabs only count as one character! Make sure to use spaces.
 
 If you get a `j` error first thing when running but your file does not start with a `j`, it means that the file could not be found
 
-turn on debugging mode by changing the `debugging` boolean at the begining of the file to `true` [(x)](https://github.com/dospunk/codelike/blob/master/Compiler.java#L13)
+turn on debugging mode by changing the `debugging` boolean at the begining of the Interpreter file to `true` [(x)](https://github.com/dospunk/codelike/blob/master/Interpreter.java#L13)
 
 ## Commands
 
